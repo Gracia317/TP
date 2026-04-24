@@ -4,12 +4,12 @@
 #include<math.h>
 #include <string.h>
 
-void aff_puis(char **T);
+void aff_coef(char **T);
 void calcul(char **T, int x);
 
 void  aff_puis(char **T)
 {
-  printf("%c\n", T[1][2]);
+  printf("coef %c\n", T[1][2]);
 }
 
 void calcul( char **T, int x)

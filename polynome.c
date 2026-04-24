@@ -2,12 +2,11 @@
                     y=2x^3+'x^2-1 pour x=6*/
 #include<stdlib.h>
 #include<math.h>
-#include <string.h>
 
 void aff_coef(char **T);
 void calcul(char **T, int x);
 
-void  aff_puis(char **T)
+void  aff_coef(char **T)
 {
   printf("coef %c\n", T[1][2]);
 }
@@ -67,7 +66,7 @@ int main(int argc, char *argv[])
   // {
   //   printf("%c\n",argv[1][i]);
   // }
-  aff_puis(argv);
+  aff_coef(argv);
   calcul(argv, x);
   return (0);
 }

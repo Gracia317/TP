@@ -65,9 +65,9 @@ void premier()
           k--;
           temp = temp / 10;
         }
+        T[j][nbchiffres]= '\0';
         fprintf(monfichier, "%s\n", T[j]);
         j++;
-        T[j][nbchiffres] = '\0';
       }
     }
   }

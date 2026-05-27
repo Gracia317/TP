@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_ETU 4
+#define MAX_ETU 1000
 
 struct etudiant
 {

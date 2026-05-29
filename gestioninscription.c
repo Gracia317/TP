@@ -35,6 +35,8 @@ void supprimer(struct etudiant *etu, int *N);
 void modifier(struct etudiant *etu, int N);
 
 
+//void recherche/////////////////////////////////////encours//
+
 void copier_chaine(char *dest, char *src, int taille)
 {
     int i;

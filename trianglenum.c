@@ -1,6 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /* Algorithme TriangleNumerique
+
+1
+1 1
+2 3 1
+3 6 6 1
+4 8 10 8 1
+5 10 15 15 10 1
 
 Variables
     n, i, j, milieu : entier
@@ -64,35 +72,64 @@ Début
 Fin
 */
 
-int main()
+int entier(int n);
+int** pas(int n);
+void triangle(int n);
+
+int entier(int n)
 {
-    int n;
-    int i, j, milieu;
+    if (n<=0)
+    {
+        int rt;
+        printf("Donner n : ");
+        rt = scanf("%d", &n);
 
-    printf("Donner n : ");
-    scanf("%d", &n);
+        while (rt <= 0)
+        {
+            while (getchar() != '\n'); 
+            printf("Donner n : ");
+            rt = scanf("%d", &n);
+        }
+      return n;
+    }
+    else
+    {
+      return n;
+    }
+}
 
-    int tpas[n + 1][n + 1];
-    int tnum[n + 1][n + 1];
+int** pas(int n)
+{
+    int** tpas = malloc((n + 1) * sizeof(int*));
+    for (int i = 0; i <= n; i++)
+    {
+        tpas[i] = malloc((n + 1) * sizeof(int));
+    }
 
-    //TRIANGLE DE PASCAL
-
-    for (i = 0; i <= n; i++)
+    for (int i = 0; i <= n; i++)
     {
         tpas[i][0] = 1;
         tpas[i][i] = 1;
 
-        for (j = 1; j < i; j++)
+        for (int j = 1; j < i; j++)
         {
-            tpas[i][j] =
-                tpas[i - 1][j - 1] +
-                tpas[i - 1][j];
+            tpas[i][j] = tpas[i - 1][j - 1] + tpas[i - 1][j];
         }
     }
-    
-    //TRIANGLE NUMERIQUE
+    return tpas;
+}
 
-    for (i = 0; i <= n; i++)
+void triangle(int n)
+{
+    int** tpas = pas(n);
+    
+    int** tnum = malloc((n + 1) * sizeof(int*));
+    for (int i = 0; i <= n; i++)
+    {
+        tnum[i] = malloc((n + 1) * sizeof(int));
+    }
+
+    for (int i = 0; i <= n; i++)
     {
         if (i == 0)
         {
@@ -105,46 +142,56 @@ int main()
         }
         else
         {
-            //Première colonne
             tnum[i][0] = i;
-
-            // Deuxième colonne
             tnum[i][1] = 2 * i;
 
-            milieu = i / 2;
+            int milieu = i / 2;
 
-            //Partie gauche
-            for (j = 2; j <= milieu; j++)
+            for (int j = 2; j <= milieu; j++)
             {
-                tnum[i][j] =
-                    tpas[i][j - 1] +
-                    tpas[i][j];
+                tnum[i][j] = tpas[i][j - 1] + tpas[i][j];
             }
 
-            // Partie droite par symétrie
-            for (j = milieu + 1; j < i; j++)
+            for (int j = milieu + 1; j < i; j++)
             {
                 tnum[i][j] = tnum[i][i - j];
             }
 
-            // Dernier élément
             tnum[i][i] = 1;
         }
     }
     
-    //AFFICHAGE
-
     printf("\nTriangle numerique :\n");
-
-    for (i = 0; i <= n; i++)
+    for (int i = 0; i <= n; i++)
     {
-        for (j = 0; j <= i; j++)
+        for (int j = 0; j <= i; j++)
         {
             printf("%d ", tnum[i][j]);
         }
-
         printf("\n");
     }
 
+    //Free
+    for (int i = 0; i <= n; i++)
+    {
+        free(tpas[i]);
+        free(tnum[i]);
+    }
+    free(tpas);
+    free(tnum);
+}
+
+int main(int argc, char *argv[])
+{
+    int n=0;
+    
+    if (argc>1)
+    {
+      n=atoi(argv[1]);
+    }
+    
+    n=entier(n);
+    
+    triangle(n);
     return 0;
 }
